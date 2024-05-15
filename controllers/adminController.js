@@ -1,6 +1,6 @@
 const { response } = require('express')
 const flights = require('../models/flightsModel')
-const flightSchedule = require('../models/flightSchedule')
+const flightSchedule = require('../models/flightScheduleModel')
 
 const addNewFlights = async (request, response) => {
     console.log(request.body)
