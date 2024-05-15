@@ -1,7 +1,9 @@
 const express = require('express')
-const { addNewFlights } = require('../controllers/adminController')
+const { addNewFlights, addNewFlightSchedule } = require('../controllers/adminController')
 const router = express.Router()
 
-router.post('/add-flight', addNewFlights)
+router.post('/flight', addNewFlights)
+
+router.post('/flight-schedule', addNewFlightSchedule)
 
 module.exports = router
