@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 const adminRoute = require("./routes/adminRoute")
+const userRoute = require("./routes/userRoute")
 
 app.get('/', (request, response) => {
     response.status(200).send({message : "It's working ✌️"})
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/v1/admin', adminRoute)
+app.use('/api/v1/user', userRoute)
 
 connect() 
     .then( () => {
