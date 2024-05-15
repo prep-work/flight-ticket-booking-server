@@ -27,6 +27,23 @@ const addNewFlights = async (request, response) => {
     }
 }
 
+const deleteAFlight = async (request, response) => {
+    const {_id} = request.body
+    try {
+        const existingFlight = await flights.findOne({ _id })
+        if(!existingFlight) {
+            return response.status(404).send({ message: 'Flight not found'})
+        }
+
+        await flights.deleteOne({ _id })
+        response.status(200).send({ message: 'Flight deleted successfully'})
+
+    }
+    catch(error) {
+        response.status(500).json({ message: error.message,})
+    }
+}
+
 const addNewFlightSchedule = async (request, response) => {
     const { 
         flight,
@@ -67,7 +84,7 @@ const addNewFlightSchedule = async (request, response) => {
             businessClassSeatPrice
         })
         console.log(newFlightSchedule)
-        // await newFlightSchedule.save()
+        await newFlightSchedule.save()
         response.status(201).send({ message: "New Flight Schedule was added."})
     }
     catch(error) {
@@ -76,7 +93,26 @@ const addNewFlightSchedule = async (request, response) => {
     
 }
 
+const deleteAFlightSchedule = async (request, response) => {
+    const {_id} = request.body
+    try {
+        const existingFlight = await flightSchedule.findOne({ _id })
+        if(!existingFlight) {
+            return response.status(404).send({ message: 'Flight Schedule not found'})
+        }
+
+        await flightSchedule.deleteOne({ _id })
+        response.status(200).send({ message: 'Flight Schedule deleted successfully'})
+
+    }
+    catch(error) {
+        response.status(500).json({ message: error.message,})
+    }
+}
+
 module.exports = {
     addNewFlights,
-    addNewFlightSchedule
+    deleteAFlight,
+    addNewFlightSchedule,
+    deleteAFlightSchedule
 }
