@@ -4,10 +4,19 @@ const app = express()
 const {PORT} = require('./config/config')
 const connect = require('./database/connection')
 
+const bodyParser = require('body-parser')
+
+const adminRoute = require("./routes/adminRoute")
 
 app.get('/', (request, response) => {
     response.status(200).send({message : "It's working ✌️"})
 })
+
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+app.use('/api/v1/admin', adminRoute)
 
 connect() 
     .then( () => {
