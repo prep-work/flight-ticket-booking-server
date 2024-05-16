@@ -3,12 +3,10 @@ const flights = require('../models/flightsModel')
 const flightSchedule = require('../models/flightScheduleModel')
 
 const addNewFlights = async (request, response) => {
-    console.log(request.body)
     const { flightCode, airlineCompany } = request.body
 
     try{
         const existingFlight = await flights.findOne({ flightCode })
-        console.log(existingFlight)
         if(existingFlight) {
             return response.status(409).send({ message: "Flight Code is already exists."})
         }
@@ -62,7 +60,6 @@ const addNewFlightSchedule = async (request, response) => {
         businessClassSeatPrice
     } = request.body
     const { stopLocations, stopTimePeriod } = request.body || null
-    console.log(stopLocations)
 
     try{
         const newFlightSchedule = new flightSchedule({
@@ -74,7 +71,7 @@ const addNewFlightSchedule = async (request, response) => {
             travelTimePeriod,
             totalNumberOfSeats,
             stops,
-            stopLocations: [...stopLocations],
+            stopLocations: stopLocations,
             stopTimePeriod,
             totalEconomyClassSeats,
             economySeatClassPrice,
@@ -83,7 +80,6 @@ const addNewFlightSchedule = async (request, response) => {
             totalBusinessClassSeats,
             businessClassSeatPrice
         })
-        console.log(newFlightSchedule)
         await newFlightSchedule.save()
         response.status(201).send({ message: "New Flight Schedule was added."})
     }

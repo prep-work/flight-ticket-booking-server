@@ -6,7 +6,7 @@ const flightScheduleSchema =  new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "flights"
         },
-        departureAirPort: {
+        departureAirport: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "airports"
         },
@@ -41,7 +41,6 @@ const flightScheduleSchema =  new mongoose.Schema(
             required: function() {
                 return this.stops !== "no-stop"
             }
-
         },
         stopTimePeriod: {
             type: [Number],
